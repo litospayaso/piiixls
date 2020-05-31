@@ -73,9 +73,10 @@ export class Level extends Phaser.Scene {
         });
 
         this.cameras.main.startFollow(this.levelProperties.player, true, 0.09, 0.09);
+        // this.cameras.main.startFollow(this.levelProperties.player, true, 0.09, 0.09).zoom = 1.7;
 
-        this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000', fontFamily: 'pixel' }).setScrollFactor(0);
-        this.positionText = this.add.text(16, 50, 'x: 0; y: 0', { fontSize: '32px', fill: '#000' }).setScrollFactor(0);
+        this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#0000FF', fontFamily: 'pixel' }).setScrollFactor(0);
+        this.positionText = this.add.text(16, 50, 'x: 0; y: 0', { fontSize: '32px', fill: '#0000FF' }).setScrollFactor(0);
 
         this.inputKeyboard();
 
@@ -127,7 +128,7 @@ export class Level extends Phaser.Scene {
     inputKeyboard() {
         this.input.keyboard.on('keydown', (key) => {
             if (key.key === 'ArrowUp' && this.levelProperties.player.body.blocked.down) {
-                this.levelProperties.player.setVelocityY(-470);
+                this.levelProperties.player.setVelocityY(-350);
             }
         });
     }
@@ -219,7 +220,7 @@ export class Level extends Phaser.Scene {
     hitAFireball(player: PlayerObject, enemy: Phaser.Physics.Arcade.Sprite) {
         enemy.disableBody(true, true);
         if (enemy.body.touching.up && player.body.touching.down) {
-            this.levelProperties.player.setVelocityY(this.levelProperties.cursors.up.isDown ? -470 : -220);
+            this.levelProperties.player.setVelocityY(this.levelProperties.cursors.up.isDown ? -350 : -220);
         } else {
             if (player.piiixls.backgroundColor === transparentColor) {
                 player.anims.play('piiixlsDie');
@@ -257,7 +258,7 @@ export class Level extends Phaser.Scene {
 
     hitAnEnemy(player: PlayerObject, enemy: Phaser.Physics.Arcade.Sprite) {
         if (enemy.body.touching.up && player.body.touching.down) {
-            player.setVelocityY(this.levelProperties.cursors.up.isDown ? -470 : -220);
+            player.setVelocityY(this.levelProperties.cursors.up.isDown ? -350 : -220);
             enemy.anims.play('enemiiixlsDie');
             // enemy.destroy();
             // enemy.disableBody(true, true);

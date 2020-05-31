@@ -16,3 +16,5 @@ newDiv.style.width = '0';
 newDiv.appendChild(newContent);
 
 document.body.append(newDiv);
+
+document.querySelector('body').style.backgroundColor = 'lightgrey';

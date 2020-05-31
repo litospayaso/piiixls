@@ -1,5 +1,5 @@
 const fs = require('fs');
-
+const tileSize = 16;
 
 const main = async () => {
 
@@ -8,10 +8,52 @@ const main = async () => {
     levelsTiled.forEach(async (leveltiled) => {
         let levelTiledJson = await fs.readFileSync(`./scripts/levels/${leveltiled}`);
         levelTiledJson = JSON.parse(levelTiledJson);
-        console.log(`./src/assets/levels/${leveltiled.split('.')[0]}/${leveltiled}`);
+        const tileSize = levelTiledJson.tilewidth;
+        const height = levelTiledJson.height * tileSize;
+        const width = levelTiledJson.width * tileSize;
         let levelPixlJson = await fs.readFileSync(`./src/assets/levels/${leveltiled.split('.')[0]}/${leveltiled}`);
         levelPixlJson = JSON.parse(levelPixlJson);
-        console.log(levelPixlJson)
+        let x = 0;
+        let y = 0;
+        let tilex = tileSize-1;
+        let tiley = tileSize-1;
+        levelPixlJson.levelProperties.dimensions = {width,height};
+        const ground = [];
+        const colorWalls = [];
+
+        const groundArray = levelTiledJson.layers.find(e => e.name === 'ground').data; 
+        const colorWallsArray = levelTiledJson.layers.find(e => e.name === 'colorWalls').data; 
+
+        groundArray.forEach((tile, i)=>{
+            if (tile !== 0) {
+                ground.push({
+                    x: x + tileSize/2,
+                    y: y + tileSize/2,
+                    texture: tile - 1
+                });
+            }
+            if (colorWallsArray[i] !== 0) {
+                colorWalls.push({
+                    x: x + tileSize/2,
+                    y: y + tileSize/2,
+                    texture: colorWallsArray[i] - 26
+                });
+            }
+
+            if (tilex === width-1) {
+                tilex = tileSize - 1;
+                x = 0;
+                y = tiley;
+                tiley += tileSize;
+            } else {
+                x += tileSize;
+                tilex += tileSize;
+                // y -= tileSize;
+            }
+        });
+        levelPixlJson.platforms.ground = ground;        
+        levelPixlJson.platforms.colorWalls = colorWalls;
+        fs.writeFileSync(`./src/assets/levels/${leveltiled.split('.')[0]}/${leveltiled}`, JSON.stringify(levelPixlJson));
     });
     // const tilesImage = await loadImage('./src/assets/tiles/brushes-tiles-export.png'); 
     // const tilesCanvas = createCanvas(tilesImage.width,tilesImage.height);

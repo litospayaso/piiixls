@@ -12,7 +12,7 @@ export const ConfigControls = function(props: LevelProperties) {
         .on('pointerout', () => props.cursors.up.isDown = false)
         .on('pointerup', () => {
             if (this.levelProperties.player.body.blocked.down) {
-                this.levelProperties.player.setVelocityY(-470);
+                this.levelProperties.player.setVelocityY(-350);
             }
         });
 };

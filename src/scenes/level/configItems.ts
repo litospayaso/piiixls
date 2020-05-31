@@ -5,12 +5,12 @@ export const ConfigItems = function(props: LevelProperties) {
     for (let index = 12; index < 2400; index += 70) {
         const pixel = props.items.create(index, 0, 'items_tiles').setFrame(3);
         pixel.itemType = 'pixel';
-        pixel.color = colorWheel[Math.floor((Math.random() * 12))];
+        pixel.color = colorWheel[Math.floor((Math.random() * colorWheel.length))];
         pixel.setTint(parseInt(pixel.color.slice(0, 6), 16));
     }
     const bucket = props.items.create(300, 600, 'items_tiles').setFrame(4).setScale(1.5);
     bucket.itemType = 'bucket';
-    bucket.color = colorWheel[Math.floor((Math.random() * 12))];
+    bucket.color = colorWheel[Math.floor((Math.random() * colorWheel.length))];
     bucket.setTint(parseInt(bucket.color.slice(0, 6), 16));
     const star = props.items.create(550, 900, 'items_tiles').setFrame(0).setScale(1.5);
     star.itemType = 'star';

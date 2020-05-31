@@ -14,6 +14,12 @@ export interface ILevelInterface {
             height: number;
         };
     };
+    player: {
+        initialPosition: {
+            x: number;
+            y: number;
+        };
+    };
     platforms: {
         ground: IPlatformInterface[];
         enemyWalls: IPlatformInterface[];
