@@ -24,7 +24,7 @@
     "clean-webpack-plugin": "^0.1.16",
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^0.28.4",
-    "csv-loader": "^2.1.1",
+    "csv-loader": "^3.0.5",
     "eslint": "^5.6.1",
     "express": "^4.16.3",
     "file-loader": "^1.1.11",
